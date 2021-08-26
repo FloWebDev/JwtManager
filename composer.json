@@ -1,0 +1,21 @@
+{
+    "name": "flowebdev/jwt-manager",
+    "description": "Json Web Token (JWT) Manager",
+    "type": "package",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "FloWebDev\\": "src/"
+        }
+    },
+    "authors": [{
+        "name": "FloWebDev",
+        "email": "mathevon.florian@gmail.com",
+        "homepage": "https://florianmathevon.com/",
+        "role": "Web Developer"
+    }],
+    "minimum-stability": "alpha",
+    "require": {
+        "php": ">=7.4.0"
+    }
+}
