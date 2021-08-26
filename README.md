@@ -38,3 +38,20 @@ class Security
     }
 }
 ```
+
+## Tests
+
+`php tests/JwtManagerTest.php `
+
+**ouputs:**
+
+```
+Test 1 OK
+Test 2 OK
+Test 3 OK
+Test 4 OK
+```
+
+## Require
+
+* php >= 8.0
