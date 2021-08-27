@@ -1,7 +1,16 @@
 # JwtManager - Json Web Token Manager
 
 JwtManager is a class which enables to generate and verify JWT (Json Web Token).
+### Require
 
+* php >= 7.2
+
+## Features
+
+From a secret key, thw JwtManager enables you to:
+- generate a JWT,
+- check the integrity and its validity period,
+- generate (>= v1.2.0) a new JWT from a valid or expired JWT as soon as the integrity is verified (signature).
 ## Example
 
 ```
@@ -15,7 +24,7 @@ class Security
 {
     const SECRET_KEY = 'VlDoHDj6SRNffHixOgXtiei1dObCqYEGniueB5/LHbk=';
 
-    public function generateJwk()
+    public function generateJwt()
     {
         $jwtManager = new JwtManager(self::SECRET_KEY);
 
@@ -30,11 +39,19 @@ class Security
         return $jwtManager->getJwt($payload, 86400);
     }
 
-    public function checkJwt($jwk)
+    public function checkJwt($jwt)
     {
         $jwtManager = new JwtManager(self::SECRET_KEY);
-        return $jwtManager->checkJWT($jwk);
+        return $jwtManager->checkJwt($jwt);
 
+    }
+
+    public function newJwt($currentOrFormerJwt)
+    {
+        $jwtManager = new JwtManager(self::SECRET_KEY);
+
+        // 3600 seconds: 1 hour validity
+        return $jwtManager->refreshJwt($currentOrFormerJwt, 3600);
     }
 }
 ```
@@ -46,12 +63,13 @@ class Security
 **ouputs:**
 
 ```
-Test 1 OK
-Test 2 OK
-Test 3 OK
-Test 4 OK
+Test 1 OK - getJwtTest
+Test 2 OK - checkJwTWithoutExpTest
+Test 3 OK - checkJwTWithExpOkTest
+Test 4 OK - checkJwTWithExpKoTest
+Test 5 OK - checkRefreshJwtWithExpOkTest
+Test 6 OK - checkRefreshJwtWithExpKoTest
+Test 7 OK - checkRefreshJwtWithExpNullTest
+Test 8 OK - checkRefreshJwtWithWrongJwt
+Test 9 OK - checkRefreshJwtWithWrongFormatJwt
 ```
-
-## Require
-
-* php >= 8.0
