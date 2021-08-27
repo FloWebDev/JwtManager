@@ -7,7 +7,7 @@ JwtManager is a class which enables to generate and verify JWT (Json Web Token).
 
 ## Features
 
-From a secret key, thw JwtManager enables you to:
+From a secret key, the JWT Manager enables you to:
 - generate a JWT,
 - check the integrity and its validity period,
 - generate (>= v1.2.0) a new JWT from a valid or expired JWT as soon as the integrity is verified (signature).
