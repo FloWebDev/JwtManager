@@ -53,11 +53,18 @@ class JwtManager
      * Used to check the integrity and validity of a JWT
      *
      * @param string $jwt - JWT
-     * @return bool Returns true when the JWT and validity is OK, otherwise false
+     * @return array Returns header and payload informations when the JWT (signature) and validity are verified, otherwise null
      */
-    public function checkJwt(string $jwt): bool
+    public function checkJwt(string $jwt): ?array
     {
-        return $this->checkJwtSignature($jwt) === true && $this->checkJwtValidity($jwt) === true;
+        if ($this->checkJwtSignature($jwt) === true && $this->checkJwtValidity($jwt) === true) {
+            $explodedJwt = explode('.', $jwt);
+            return [
+                'header'  => json_decode($this->base64UrlDecode(($explodedJwt[0])), 1),
+                'payload' => json_decode($this->base64UrlDecode(($explodedJwt[1])), 1),
+            ];
+        }
+        return null;
     }
 
     /**

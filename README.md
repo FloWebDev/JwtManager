@@ -10,6 +10,7 @@ JwtManager is a class which enables to generate and verify JWT (Json Web Token).
 From a secret key, the JWT Manager enables you to:
 - generate a JWT,
 - check the integrity and its validity period,
+- if the JWT integrity and validity period are validated, header and payload informations are returned (>= v1.3.0),
 - generate (>= v1.2.0) a new JWT from a valid or expired JWT as soon as the integrity is verified (signature).
 ## Example
 
@@ -72,4 +73,5 @@ Test 6 OK - checkRefreshJwtWithExpKoTest
 Test 7 OK - checkRefreshJwtWithExpNullTest
 Test 8 OK - checkRefreshJwtWithWrongJwt
 Test 9 OK - checkRefreshJwtWithWrongFormatJwt
+Tests: 9, Success: 9, Failures: 0
 ```

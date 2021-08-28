@@ -34,7 +34,8 @@ class JwtManagerTest extends JwtManager
             'admin' => true
         ]));
 
-        return $check === true;
+        return is_array($check) && array_key_exists('header', $check) && array_key_exists('payload', $check)
+            && array_key_exists('exp', $check['payload']) && is_null($check['payload']['exp']);
     }
 
     /**
@@ -50,7 +51,8 @@ class JwtManagerTest extends JwtManager
             'admin' => true
         ], 10));
 
-        return $check === true;
+        return is_array($check) && array_key_exists('header', $check) && array_key_exists('payload', $check)
+            && array_key_exists('exp', $check['payload']) && is_int($check['payload']['exp']);
     }
 
     /**
@@ -66,7 +68,7 @@ class JwtManagerTest extends JwtManager
             'admin' => true
         ], -1));
 
-        return $ckeck === false;
+        return is_null($ckeck);
     }
 
     /**
@@ -143,13 +145,18 @@ class JwtManagerTest extends JwtManager
 }
 
 // Run tests
-$nbTest = 0;
-$f      = new ReflectionClass('JwtManagerTest');
+$nbTest    = 0;
+$nbSuccess = 0;
+$f         = new ReflectionClass('JwtManagerTest');
 foreach ($f->getMethods() as $m) {
     if ($m->class == 'JwtManagerTest') {
         $nbTest++;
         $method     = $m->name;
         $jwtManager = new JwtManagerTest('LaMUjgU0c6qiZBQb5ULx8zyLUJw/7chsCgMLAyn9xn8=');
-        echo "Test $nbTest " . ($jwtManager->$method() ? "OK" : "KO") . " - $method\n";
+        $res        = $jwtManager->$method();
+        $nbSuccess  = $res ? $nbSuccess + 1 : $nbSuccess;
+
+        echo "Test $nbTest " . ($res ? "OK" : "KO") . " - $method\n";
     }
 }
+echo "Tests: $nbTest, Success: $nbSuccess, Failures: " . ($nbTest - $nbSuccess) . "\n";
