@@ -10,7 +10,7 @@ JwtManager is a class which enables to generate and verify JWT (Json Web Token).
 From a secret key, the JWT Manager enables you to:
 - generate a JWT,
 - check the integrity and its validity period,
-- if the JWT integrity and validity period are validated, header and payload informations are returned (>= v1.3.0),
+- get header and payload informations (>= v1.3.0) if the JWT integrity and validity period are validated,
 - generate (>= v1.2.0) a new JWT from a valid or expired JWT as soon as the integrity is verified (signature).
 ## Example
 
@@ -56,12 +56,44 @@ class Security
     }
 }
 ```
+**Output JWT generation example:**
+
+`eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImV4cCI6MTYzMDMwNTU0OX0.J7qxtEOGkgsbQKoduqgUhZ9Y6DHc8Vm-XlWDFCWgc6Dp5TwVh8MZ54_3pqp_vxIru3JKvIr8undToYdlJWbKYg`
+
+**Output when JWT OK example:**
+
+```
+array(2) {
+  ["header"]=>
+  array(2) {
+    ["typ"]=>
+    string(3) "JWT"
+    ["alg"]=>
+    string(5) "HS512"
+  }
+  ["payload"]=>
+  array(4) {
+    ["sub"]=>
+    string(10) "1234567890"
+    ["name"]=>
+    string(8) "John Doe"
+    ["admin"]=>
+    bool(true)
+    ["exp"]=>
+    int(1630222751)
+  }
+}
+```
+
+**Output when JWT KO example:**
+
+`NULL`
 
 ## Tests
 
 `php tests/JwtManagerTest.php `
 
-**ouputs:**
+**Ouputs:**
 
 ```
 Test 1 OK - getJwtTest
